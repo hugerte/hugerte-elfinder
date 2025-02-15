@@ -1,4 +1,4 @@
-window.tinymceElfinder = function(opts) {
+window.hugerteElfinder = function(opts) {
     // elFinder node
     let elfNode = $('<div/>');
     if (opts.nodeId) {
@@ -12,8 +12,8 @@ window.tinymceElfinder = function(opts) {
 
     // get elFinder insrance
     const getfm = open => {
-        // CSS class name of TinyMCE conntainer
-        const cls = (tinymce.majorVersion < 5)? 'mce-container' : 'tox';
+        // CSS class name of HugeRTE conntainer
+        const cls = 'tox';
         return new Promise((resolve, reject) => {
             // elFinder instance
             let elf;
@@ -142,8 +142,8 @@ window.tinymceElfinder = function(opts) {
         return false;
     };
 
-    this.uploadHandler = function (blobInfo, success, failure) {
-        new Promise(function(resolve, reject) {
+    this.uploadHandler = function (blobInfo) {
+        return new Promise(function(resolve, reject) {
             getfm(uploadTargetHash).then(fm => {
                 let fmNode = fm.getUI(),
                     file = blobInfo.blob(),
@@ -198,10 +198,6 @@ window.tinymceElfinder = function(opts) {
                 const error = fm.parseError(err);
                 reject(fm.i18n(error? (error === 'userabort'? 'errAbort' : error) : 'errUploadNoFiles'));
             });
-        }).then((url) => {
-            success(url);
-        }).catch((err) => {
-            failure(err);
         });
     };
 };
